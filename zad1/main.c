@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <math.h>
+#include <signal.h>
 
 #define ala 3
 
@@ -8,20 +9,47 @@ void print_poem(FILE *file);
 
 void print_poem_backwards(FILE *file);
 
+void sighandler(int signum) {
+    switch (signum) {
+        case SIGINT: {
+            printf("Odebrano sygnał SIGINT");
+            exit(0);
+        }
+        case SIGTSTP: {
+
+            break;
+        }
+        default:
+            break;
+    }
+    return;
+}
+
+int num = 1;
+
+int backwards = 0;
+
+int max_num;
+
 int main(int argc, char *argv[]) {
-    if (argc < 2) {
+    if (argc < 3) {
         printf("Trolololo");
         exit(1);
     }
     char *path = argv[1];
+    max_num = atoi(argv[2]);
+    if (max_num == 0) {
+        printf("trolololo");
+        exit(1);
+    }
+
     FILE *file = fopen(path, "r+");
     if (file == NULL) {
         printf("Trololo");
         exit(1);
     }
-    print_poem(file);
-    printf("\n");
-    print_poem_backwards(file);
+    signal(SIGINT, sighandler);
+
     return 0;
 }
 
