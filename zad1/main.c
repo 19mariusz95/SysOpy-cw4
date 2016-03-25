@@ -75,7 +75,9 @@ int main(int argc, char *argv[]) {
     print_poem();
     do {
         signal(SIGINT, sighandler);
-        signal(SIGTSTP, sighandler);
+        struct sigaction abc;
+        abc.sa_handler = sighandler;
+        sigaction(SIGTSTP, &abc, NULL);
         pause();
     } while (1);
 }
