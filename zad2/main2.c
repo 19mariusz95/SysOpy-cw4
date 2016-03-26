@@ -1,8 +1,15 @@
-#include <stdio.h>
 #include <stdlib.h>
+#include <stdio.h>
 #include <signal.h>
+#include <zconf.h>
 
-void send_signal(int p);
+void receive_signal();
+
+void alamakota(int singal) {
+
+    printf("Otrzymano sygnal\n");
+    fflush(stdout);
+}
 
 int main(int argc, char *argv[]) {
 
@@ -18,17 +25,18 @@ int main(int argc, char *argv[]) {
         exit(1);
     }
 
-    int p;
-    scanf("%d", &p);
+    printf("%d\n", getpid());
+    fflush(stdout);
 
     for (int i = 0; i < ala; i++) {
-        send_signal(p);
+        receive_signal();
     }
 
     return 0;
 }
 
-void send_signal(int p) {
-    union sigval s;
-    sigqueue(p, SIGUSR1, s);
+void receive_signal() {
+    signal(SIGUSR1, alamakota);
+    pause();
 }
+
