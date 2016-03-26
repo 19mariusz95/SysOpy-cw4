@@ -2,10 +2,11 @@
 #include <stdio.h>
 #include <signal.h>
 #include <unistd.h>
+#include <memory.h>
 
 #define ala 3
 
-char *path;
+char *text;
 
 int num = 1;
 
@@ -17,11 +18,9 @@ int backwards = 1;
 
 int max_num;
 
-void print_poem();
+void print_text();
 
-void print_poem_backwards();
-
-FILE *get_file();
+void print_text_backwards();
 
 void sighandler(int signum) {
     switch (signum) {
@@ -33,10 +32,10 @@ void sighandler(int signum) {
             printf("Odebrano sygnał SIGTSTP\n");
             if (backwards == 0) {
                 for (int i = 0; i < num; i++)
-                    print_poem();
+                    print_text();
             } else {
                 for (int i = 0; i < num; i++)
-                    print_poem_backwards();
+                    print_text_backwards();
             }
             if (tmp == 0) {
                 backwards = 1;
@@ -66,13 +65,13 @@ int main(int argc, char *argv[]) {
         printf("Trolololo");
         exit(1);
     }
-    path = argv[1];
+    text = argv[1];
     max_num = atoi(argv[2]);
     if (max_num == 0) {
         printf("trolololo");
         exit(1);
     }
-    print_poem();
+    print_text();
     do {
         signal(SIGINT, sighandler);
         struct sigaction abc;
@@ -82,49 +81,12 @@ int main(int argc, char *argv[]) {
     } while (1);
 }
 
-void print_poem_backwards() {
-    FILE *file = get_file();
-    char alamakota[ala + 1];
-    long tmp;
-    fseek(file, 0, SEEK_END);
-    long current, previous;
-    previous = ftell(file);
-    fseek(file, -ala, SEEK_CUR);
-    tmp = fread(&alamakota, 1, ala, file);
-    fseek(file, -tmp, SEEK_CUR);
-    alamakota[tmp] = '\0';
-    current = ftell(file);
-    while (current < previous && tmp > 0) {
-        for (long i = tmp - 1; i >= 0; i--)
-            printf("%c", alamakota[i]);
-        previous = current;
-        fseek(file, -ala, SEEK_CUR);
-        current = ftell(file);
-        tmp = fread(&alamakota, 1, ala, file);
-        alamakota[tmp] = '\0';
-        fseek(file, -tmp, SEEK_CUR);
-    }
+void print_text_backwards() {
+    for (long i = strlen(text) - 1; i >= 0; i--)
+        printf("%c", text[i]);
     printf("\n");
-    fclose(file);
 }
 
-FILE *get_file() {
-    FILE *file = fopen(path, "r+");
-    if (file == NULL) {
-        printf("Trololo");
-        exit(1);
-    }
-    return file;
-}
-
-void print_poem() {
-    FILE *file = get_file();
-    char alamakota[ala + 1];
-    long tmp;
-    while ((tmp = fread(&alamakota, 1, ala, file)) > 0) {
-        alamakota[tmp] = '\0';
-        printf(alamakota);
-    }
-    printf("\n");
-    fclose(file);
+void print_text() {
+    printf("%s\n", text);
 }
