@@ -6,9 +6,18 @@
 void receive_signal();
 
 void alamakota(int singal) {
+    switch (singal) {
+        case SIGUSR1: {
 
-    printf("Otrzymano sygnal\n");
-    fflush(stdout);
+            break;
+        }
+        case SIGUSR2: {
+            break;
+        }
+        default: {
+            printf("Odebrano sygnal\n");
+        }
+    }
 }
 
 int main(int argc, char *argv[]) {
