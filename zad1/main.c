@@ -4,8 +4,6 @@
 #include <unistd.h>
 #include <memory.h>
 
-#define ala 3
-
 char *text;
 
 int num = 1;
@@ -72,11 +70,11 @@ int main(int argc, char *argv[]) {
         exit(1);
     }
     print_text();
+    signal(SIGINT, sighandler);
+    struct sigaction abc;
+    abc.sa_handler = sighandler;
+    sigaction(SIGTSTP, &abc, NULL);
     do {
-        signal(SIGINT, sighandler);
-        struct sigaction abc;
-        abc.sa_handler = sighandler;
-        sigaction(SIGTSTP, &abc, NULL);
         pause();
     } while (1);
 }
