@@ -12,7 +12,6 @@
 void receive_signal(void (*fun)()) {
     signal(SIGUSR1, fun);
     signal(SIGUSR2, fun);
-    pause();
 }
 
 void send_signal(int p, int signal, union sigval s) {
