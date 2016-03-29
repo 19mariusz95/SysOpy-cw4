@@ -1,7 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <signal.h>
-#include <zconf.h>
 #include "ksiadz.h"
 
 int ala = 0;

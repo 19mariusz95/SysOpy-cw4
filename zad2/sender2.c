@@ -1,7 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <signal.h>
-#include <zconf.h>
 #include "ksiadz.h"
 
 int ala = 0;
@@ -56,7 +54,8 @@ int main(int argc, char *argv[]) {
     }
     send_signal(p, SIGUSR2, s);
 
+    receive_signal(fun);
     while (1) {
-        receive_signal(fun);
+        pause();
     }
 }

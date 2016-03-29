@@ -1,7 +1,5 @@
 #include <stdlib.h>
 #include <stdio.h>
-#include <signal.h>
-#include <zconf.h>
 #include "ksiadz.h"
 
 int ala2 = 0;
@@ -40,6 +38,7 @@ int main(int argc, char *argv[]) {
     pid;
     scanf("%d", &pid);
 
+    receive_signal(alamakota);
     while (1)
-        receive_signal(alamakota);
+        pause();
 }
