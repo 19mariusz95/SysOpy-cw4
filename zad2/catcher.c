@@ -26,9 +26,6 @@ void alamakota(int singal, siginfo_t *info, void *cont) {
 
 int main(int argc, char *argv[]) {
 
-    printf("%d\n", getpid());
-    fflush(stdout);
-
     receive_signal(alamakota);
     while (1)
         pause();
