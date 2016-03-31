@@ -5,20 +5,17 @@
 int ala2 = 0;
 union sigval s;
 
-void alamakota(int singal) {
+void alamakota(int singal, siginfo_t *info, void *cont) {
     switch (singal) {
         case SIGUSR1: {
             ala2++;
             break;
         }
         case SIGUSR2: {
-            printf("podaj pid\n");
-            int pid;
-            scanf("%d", &pid);
             for (int i = 0; i < ala2; i++) {
-                send_signal(pid, SIGUSR1, s);
+                send_signal(info->si_pid, SIGUSR1, s);
             }
-            send_signal(pid, SIGUSR2, s);
+            send_signal(info->si_pid, SIGUSR2, s);
             exit(0);
         }
         default: {
