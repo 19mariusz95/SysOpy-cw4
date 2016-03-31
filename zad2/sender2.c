@@ -45,7 +45,7 @@ int main(int argc, char *argv[]) {
 
     pid_t pid;
     char line[100];
-    FILE *cmd = popen("pidof catcher", "r");
+    FILE *cmd = popen("pidof catcher2", "r");
     if (cmd == NULL) {
         printf("trololo");
         exit(1);
