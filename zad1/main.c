@@ -10,15 +10,17 @@ int num = 1;
 
 int delta = 1;
 
-int tmp = 1;
+int tmp = 0;
 
-int backwards = 1;
+int backwards = 0;
 
 int max_num;
 
 void print_text();
 
 void print_text_backwards();
+
+void print();
 
 void sighandler(int signum) {
     switch (signum) {
@@ -27,14 +29,6 @@ void sighandler(int signum) {
             exit(0);
         }
         case SIGTSTP: {
-            printf("Odebrano sygnał SIGTSTP\n");
-            if (backwards == 0) {
-                for (int i = 0; i < num; i++)
-                    print_text();
-            } else {
-                for (int i = 0; i < num; i++)
-                    print_text_backwards();
-            }
             if (tmp == 0) {
                 backwards = 1;
             } else if (tmp == 1) {
@@ -60,23 +54,34 @@ void sighandler(int signum) {
 
 int main(int argc, char *argv[]) {
     if (argc < 3) {
-        printf("Trolololo");
+        printf("Not enough arguments\n");
         exit(1);
     }
     text = argv[1];
     max_num = atoi(argv[2]);
     if (max_num == 0) {
-        printf("trolololo");
+        printf("wrong 2nd argument");
         exit(1);
     }
-    print_text();
     signal(SIGINT, sighandler);
     struct sigaction abc;
     abc.sa_handler = sighandler;
     sigaction(SIGTSTP, &abc, NULL);
-    do {
-        pause();
-    } while (1);
+    while (1) {
+        print();
+        sleep(1);
+    }
+}
+
+void print() {
+    if (backwards == 0) {
+        for (int i = 0; i < num; i++)
+            print_text();
+    } else {
+        for (int i = 0; i < num; i++)
+            print_text_backwards();
+    }
+    printf("\n");
 }
 
 void print_text_backwards() {
