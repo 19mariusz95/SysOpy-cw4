@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "ksiadz2.h"
+#include "ksiadz3.h"
 
 int ala2 = 0;
 union sigval s;

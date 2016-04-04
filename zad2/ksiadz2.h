@@ -23,11 +23,4 @@ void receive_signal(void (*fun)(int, siginfo_t *, void *)) {
     sigaction(MYSIG2, &ala, NULL);
 }
 
-int send_signal(int p, int signal, union sigval s) {
-    int result = sigqueue(p, signal, s);
-    if (result != 0)
-        printf("Error");
-    return result;
-}
-
 #endif //ZAD2_KSIADZ2_H
