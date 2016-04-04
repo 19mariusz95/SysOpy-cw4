@@ -5,9 +5,9 @@
 #ifndef ZAD2_KSIADZ3_H
 #define ZAD2_KSIADZ3_H
 
-pid_t get_catcher_pid() {
+pid_t get_catcher_pid(char *cmdt) {
     char line[100];
-    FILE *cmd = popen("pidof catcher", "r");
+    FILE *cmd = popen(cmdt, "r");
     if (cmd == NULL) {
         printf("Error while searching for catcher process\n");
         exit(1);

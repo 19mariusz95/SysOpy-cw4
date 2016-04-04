@@ -32,7 +32,7 @@ int main(int argc, char *argv[]) {
         exit(1);
     }
 
-    pid_t pid = get_catcher_pid();
+    pid_t pid = get_catcher_pid("pidof catcher3");
 
     for (int i = 0; i < ala2; i++) {
         send_signal(pid, MYSIG1, s);

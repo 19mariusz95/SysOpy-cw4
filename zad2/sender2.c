@@ -44,7 +44,7 @@ int main(int argc, char *argv[]) {
         exit(1);
     }
 
-    pid_t pid = get_catcher_pid();
+    pid_t pid = get_catcher_pid("pidof catcher2");
 
     receive_signal(fun);
 
