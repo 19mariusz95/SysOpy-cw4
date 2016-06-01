@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.4)
-project(zad2)
+project(zad2 C)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall")
 
 add_executable(sender sender.c ksiadz.h ksiadz3.h)
 add_executable(catcher catcher.c ksiadz.h ksiadz3.h)
